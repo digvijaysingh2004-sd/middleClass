@@ -1,0 +1,98 @@
+﻿@model IEnumerable<MiddelClass.Models.ColorModel>
+@{
+    ViewBag.Title = "Color";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="#">Manage Product</a></li>
+                            <li class="breadcrumb-item active">Color</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">Color</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Color Form</h4>
+                        <hr />
+                        <div class="tab-content">
+                            <div class="tab-pane show active" id="custom-styles-preview">
+                                <form>
+
+                                    <div class="mb-3">
+                                        <label for="simpleinput" class="form-label">Color Name</label>
+                                        <input type="hidden" class="form-control" id="HID" value="0">
+                                        <input type="text" id="ColorName" class="form-control">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="simpleinput" class="form-label">Color Code</label>
+                                        <input type="text" id="ColorCode" class="form-control">
+                                    </div>
+
+                                    <button id="SaveUpdate" class="btn btn-soft-primary" type="submit"><i class="fa-light fa-plus"></i> Add</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Color details</h4>
+                        <hr />
+                        <div class="tab-content">
+                            <div class="tab-pane show active" id="row-callback-preview">
+                                <table id="fixed-header-datatable" class="table table-striped dt-responsive nowrap w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Sl.No.</th>
+                                            <th>Color Name</th>
+                                            <th>Color</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            int a = 0;
+                                            foreach (var color in Model)
+                                            {
+                                                a++;
+                                                <tr>
+                                                    <td>@a</td>
+                                                    <td>@color.ColorName</td>
+                                                    <td>
+                                                        <button style="height: 20px; width: 20px; border: 1px solid rgba(0, 0, 0, 0.2); background-color: @color.ColorCode;"></button>
+                                                    </td>
+                                                    <td>
+                                                        <a onclick="Edit(@color.ID)" class="btn btn-sm btn-outline-info"><i class="fa-light fa-edit"></i> Edit</a>
+                                                        <a onclick="Delete(@color.ID)" class="btn btn-sm btn-outline-danger"><i class="fa-light fa-trash-can"></i> Delete</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Areas/Admin/Jquery/Color.js"></script>

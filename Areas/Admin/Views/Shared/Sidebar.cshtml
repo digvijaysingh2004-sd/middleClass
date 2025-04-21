@@ -1,0 +1,101 @@
+﻿<!-- ========== Left Sidebar Start ========== -->
+<div class="leftside-menu">
+
+    <!-- Brand Logo Light -->
+    <a href="@Url.Action("Index","Admin")" class="logo logo-light">
+        <span class="logo-lg" style="font-size: 20px; letter-spacing: 3px; font-weight: 600; color: black">
+            MIDDEL CLASS
+        </span>
+        <span class="logo-sm" style="font-size: 20px; letter-spacing: 3px; font-weight: 600; color: black">
+            MC
+        </span>
+    </a>
+
+
+    <!-- Sidebar Hover Menu Toggle Button -->
+    <div class="button-sm-hover" data-bs-toggle="tooltip" data-bs-placement="right" title="Show Full Sidebar">
+        <i class="ri-checkbox-blank-circle-line align-middle"></i>
+    </div>
+
+    <!-- Full Sidebar Menu Close Button -->
+    <div class="button-close-fullsidebar">
+        <i class="ri-close-fill align-middle"></i>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="h-100" id="leftside-menu-container" data-simplebar>
+        <!-- Leftbar User -->
+        <div class="leftbar-user">
+            <a href="pages-profile.html">
+                <img src="~/Content/images/users/avatar-1.jpg" alt="user-image" height="42" class="rounded-circle shadow-sm">
+                <span class="leftbar-user-name mt-2">Dominic Keller</span>
+            </a>
+        </div>
+
+        <!--- Sidemenu -->
+        <ul class="side-nav">
+
+            <li class="side-nav-title">main</li>
+
+            <li class="side-nav-item">
+                <a href="@Url.Action("Index","Admin")" class="side-nav-link">
+                    <i class="fa-light fa-rocket"></i>
+                    <span> Dashboard </span>
+                </a>
+            </li>
+
+            <li class="side-nav-title">Manage Products</li>
+
+            <li class="side-nav-item">
+                <a href="@Url.Action("Brands","Admin")" class="side-nav-link">
+                    <i class="fa-light fa-wreath"></i>
+                    <span> Brands </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="@Url.Action("Category","Admin")" class="side-nav-link">
+                    <i class="fa-light fa-list-check"></i>
+                    <span> Category </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="@Url.Action("Size","Admin")" class="side-nav-link">
+                    <i class="fa-light fa-ruler"></i>
+                    <span> Size </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="@Url.Action("Material","Admin")" class="side-nav-link">
+                    <i class="fa-light fa-blanket"></i>
+                    <span> Material </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="@Url.Action("Color","Admin")" class="side-nav-link">
+                    <i class="fa-light fa-palette"></i>
+                    <span> Color </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="@Url.Action("SummerEdit","Admin")" class="side-nav-link">
+                    <i class="fa-light fa-hat-beach"></i>
+                    <span> Summer Edit </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="@Url.Action("Product","Admin")" class="side-nav-link">
+                    <i class="fa-light fa-tags"></i>
+                    <span>Product</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<!-- ========== Left Sidebar End ========== -->

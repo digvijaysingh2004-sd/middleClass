@@ -1,0 +1,70 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="~/Areas/Admin/assets/images/MiddleClass.png">
+    <link href="~/Areas/Admin/assets/css/icons.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/css/Adminlogin.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/css/all-fontawesome.min.css" rel="stylesheet" />
+    <title>Admin Login</title>
+
+</head>
+<body>
+    <section>
+        <div id="cover">
+            <img draggable="false" src="~/Content/img/loginimage/star.jpg" alt="logo" id="icon" width="40" style="mix-blend-mode: color-dodge;">
+
+            <input type="radio" name="controler" id="slide1" hidden checked>
+
+            <div id="sliderContainer">
+                <div id="model1">
+                    <h1>"Welcome back! Every great journey continues with a single Log-in."</h1>
+                    <img draggable="false" src="~/Content/img/loginimage/signup1.jpg" alt="model1" id="imgModel1" width="110" height="150" style="object-fit: cover">
+                </div>
+            </div>
+
+        </div>
+        <div id="loginForm">
+            <h1 style=" text-align: center; margin-top: -30px; margin-bottom: 10px;">Log in</h1>
+            <h6 style=" text-align: center; font-size: 11px; font-weight: normal; margin-bottom:20px; ">Good to see you again! Let’s pick up where we left off.</h6>
+            @using (Html.BeginForm("AdminLogin", "Account", FormMethod.Post))
+            {
+                <form id="createAccountForm">
+                    <div class="mt-1">
+                        <input type="email" name="UserId" id="UserId" placeholder="Email" required>
+                    </div>
+                    <div style="position: relative; display: flex; align-items: center; margin-top: 10px;">
+                        <input type="password" name="Password" id="Password" placeholder="Password" required />
+                        <i class="fa-light fa-eye-slash" id="togglePassword" style="position: absolute; right: 10px; cursor: pointer; color: #555;"></i>
+                    </div>
+                    <button class="login mt-1" type="submit">Login</button>
+                </form>
+            }
+        </div>
+    </section>
+</body>
+</html>
+
+
+<script>
+    const passwordField = document.getElementById("Password");
+    const togglePassword = document.getElementById("togglePassword");
+
+    togglePassword.addEventListener("click", function () {
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            togglePassword.classList.remove("fa-eye-slash");
+            togglePassword.classList.add("fa-eye");
+        } else {
+            passwordField.type = "password";
+            togglePassword.classList.remove("fa-eye");
+            togglePassword.classList.add("fa-eye-slash");
+        }
+    });
+</script>

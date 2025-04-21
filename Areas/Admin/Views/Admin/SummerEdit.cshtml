@@ -1,0 +1,330 @@
+﻿@model IEnumerable<MiddelClass.Models.SummerEditModel>
+@{
+    ViewBag.Title = "SummerEdit";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+<style>
+    .custom-file-upload .btn {
+        background-color: white;
+        color: gray;
+        border: 1px solid gainsboro;
+    }
+
+    .preview-image {
+        border: 1px solid #cdced0b5;
+        border-radius: 4px;
+    }
+
+    .review-box {
+        background-color: white;
+    }
+
+    .review-image {
+        object-fit: cover;
+    }
+    .multi-user a {
+        display: inline-block; 
+        margin-right: -5px; 
+        position: relative;
+        border: none;
+    }
+
+    .multi-user img {
+        transition: transform 0.2s ease-in-out;
+        height: 35px;
+        width: 35px;
+    }
+
+    .multi-user a:hover {
+        z-index: 5; 
+    }
+
+    .multi-user a:hover img {
+        transform: scale(1.1); 
+    }
+
+    #fullscreenImageContainer {
+        display: none; /* Hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: white; /* White Background */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999; /* Ensure it appears on top */
+    }
+
+    /* Large Image */
+    #fullscreenImage {
+        max-width: 90%;
+        max-height: 90%;
+        cursor: pointer; /* Click to close */
+    }
+</style>
+
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="#">Manage Product</a></li>
+                            <li class="breadcrumb-item active">SummerEdit</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">Size</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Size Form</h4>
+                        <hr />
+                        <div class="tab-content">
+                            <div class="tab-pane show active" id="custom-styles-preview">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-4">
+
+                                            <div class="mb-3">
+                                                <label for="simpleinput" class="form-label">Product Id</label>
+                                                <input type="hidden" class="form-control" id="HID" value="0">
+                                                <input type="text" id="ProductId" class="form-control">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="simpleinput" class="form-label">Product Name</label>
+                                                <input type="text" id="ProductName" class="form-control">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="simpleinput" class="form-label">Quantity In Stock</label>
+                                                <input type="text" id="Quantity" class="form-control">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="simpleinput" class="form-label">Badge</label>
+                                                <input type="text" id="Badge" class="form-control">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label class="form-label" asp-for="Category">Category</label>
+                                                <select name="Category" id="Category" class="select2 form-control" data-toggle="select2" ></select>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label">Material</label>
+                                                <select name="Material" id="Material" class="select2 form-control" data-toggle="select2"></select>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label" asp-for="Size">Size</label>
+                                                <select name="Size" id="Size" class="select2 form-control select2-multiple" data-toggle="select2" multiple="multiple" data-placeholder="Select Size"></select>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label" asp-for="Color">Color</label>
+                                                <select name="Color" id="Color" class="select2 form-control select2-multiple" data-toggle="select2" multiple="multiple" data-placeholder="Select Color"></select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+
+                                            <div class="mb-3">
+                                                <label for="simpleinput" class="form-label">Price</label>
+                                                <input type="text" id="Price" class="form-control">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="simpleinput" class="form-label">Discount Percentage</label>
+                                                <input type="text" id="DiscountPercentage" class="form-control">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="simpleinput" class="form-label">Discounted Price</label>
+                                                <input type="text" id="DiscountedPrice" class="form-control">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="example-textarea" class="form-label">Product Description</label>
+                                                <textarea class="form-control" id="Description" rows="6"></textarea>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6" style="margin-top: -110px;">
+                                            <div class="custom-file-upload mb-3">
+                                                <label for="simpleinput" class="form-label">Uploads Images</label>
+                                                <label for="ProductImage" class="btn btn-lg d-flex align-items-center justify-content-center gap-2 w-90">
+                                                    <i class="fa-light fa-camera"></i>
+                                                </label>
+                                                <input type="file" id="ProductImage" multiple accept="image/*" class="ProductImage visually-hidden">
+                                                <div id="image-preview" class="mt-3 d-flex flex-wrap gap-3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button id="SaveUpdate" class="btn btn-soft-primary" type="submit"> Add</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Size details</h4>
+                        <hr />
+                        <div class="tab-content">
+                            <div class="tab-pane show active" id="row-callback-preview">
+                                <table id="fixed-header-datatable" class="table table-striped dt-responsive nowrap w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Sl.No.</th>
+                                            <th>Images</th>
+                                            <th>Product Id</th>
+                                            <th>Product Name</th>
+                                            <th>Quantity</th>
+                                            <th>Badge</th>
+                                            <th>Category</th>
+                                            <th>Size</th>
+                                            <th>Material</th>
+                                            <th>Color</th>
+                                            <th>Price</th>
+                                            <th>Discount Percentage</th>
+                                            <th>Discounted Price</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            int a = 0;
+                                            foreach (var summer in Model)
+                                            {
+                                                a++;
+                                                <tr>
+                                                    <td>@a</td>
+                                                    <td>
+                                                        <img src="@summer.Image" style="height:30px;" alt="image">
+                                                    </td>
+                                                    <td>@summer.ProductId</td>
+                                                    <td>@summer.ProductName</td>
+                                                    <td>@summer.Quantity</td>
+                                                    <td>@summer.Badge</td>
+                                                    <td>@summer.CategoryName</td>
+                                                    <td>@summer.SizeName</td>
+                                                    <td>@summer.MaterialName</td>
+                                                    <td>@summer.ColorName</td>
+                                                    <td>@summer.Price</td>
+                                                    <td>@summer.DiscountPercentage%</td>
+                                                    <td>@summer.DiscountPrice</td>
+                                                    <td>@summer.Description</td>
+                                                    <td>
+                                                        @if (summer.Status == 1)
+                                                        {
+                                                            <span class="badge bg-success-subtle text-success">Active</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="badge bg-danger-subtle text-danger">In-Active</span>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <a onclick="Edit(@summer.ID)" class="btn btn-sm btn-outline-info">
+                                                            <i class="bi bi-pencil-square"></i> Edit
+                                                        </a>
+                                                        <a onclick="Delete(@summer.ID)" class="btn btn-sm btn-outline-danger">
+                                                            <i class="bi bi-trash"></i> Delete
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Areas/Admin/Jquery/SummerEdit.js"></script>
+
+<script>
+    let selectedFiles = [];
+
+    // Handle image upload and preview with remove functionality
+    $('.ProductImage').on('change', function (event) {
+        const files = event.target.files;
+        const $previewContainer = $('#image-preview');
+
+        if (!files || files.length === 0) {
+            $previewContainer.empty();
+            selectedFiles = [];
+            return;
+        }
+
+        $.each(files, function (index, file) {
+            selectedFiles.push(file);
+
+            const tempUrl = URL.createObjectURL(file);
+            const $imgWrapper = $('<div>').addClass('preview-wrapper position-relative d-inline-block');
+            const $img = $('<img>', {
+                src: tempUrl,
+                class: 'preview-image',
+                css: {
+                    maxWidth: '100px',
+                    maxHeight: '100px',
+                    objectFit: 'cover'
+                }
+            });
+            const $removeBtn = $('<button>', {
+                type: 'button',
+                class: 'btn btn-sm position-absolute top-0 end-0',
+                html: '<i class="fa-regular fa-xmark"></i>',
+                css: {
+                    padding: '0px 4px',
+                    fontsize: '12px',
+                    background: 'transparent',
+                    border: 'none'
+                }
+            });
+
+            $removeBtn.on('click', function () {
+                const fileIndex = selectedFiles.indexOf(file);
+                if (fileIndex > -1) {
+                    selectedFiles.splice(fileIndex, 1);
+                }
+                $imgWrapper.remove();
+                URL.revokeObjectURL(tempUrl);
+            });
+
+            $imgWrapper.append($img).append($removeBtn);
+            $previewContainer.append($imgWrapper);
+        });
+    });
+
+</script>

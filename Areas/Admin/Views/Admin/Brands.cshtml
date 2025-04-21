@@ -1,0 +1,142 @@
+﻿@model IEnumerable<MiddelClass.Models.BrandsModel>
+@{
+    ViewBag.Title = "Brands";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="#">Manage Product</a></li>
+                            <li class="breadcrumb-item active">Brands</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">Brands</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Brands Form</h4>
+                        <hr />
+                        <div class="tab-content">
+                            <div class="tab-pane show active" id="custom-styles-preview">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="simpleinput" class="form-label">Brands Name</label>
+                                        <input type="hidden" class="form-control" id="HID" value="0">
+                                        <input type="text" id="BrandsName" class="form-control">
+                                    </div>
+                                    <div class="mb-2">
+                                        <canvas id="canva" style="border: 1px solid gainsboro; width: 340px; height: 200px;"></canvas>
+                                        <p>
+                                            <input type="file" class="form-control" accept="image/*" id="BrandsImage" onchange="upload()">
+                                        </p>
+                                    </div>
+                                    <button id="SaveUpdate" class="btn btn-soft-primary" type="submit"> Add</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Brands details</h4>
+                        <hr />
+                        <div class="tab-content">
+                            <div class="tab-pane show active" id="row-callback-preview">
+                                <table id="fixed-header-datatable" class="table table-striped dt-responsive nowrap w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Sl.No.</th>
+                                            <th>Brands Image</th>
+                                            <th>Brands Name</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{ 
+                                            int a = 0;
+                                            foreach(var brand in Model)
+                                            {
+                                                a++;
+                                                <tr>
+                                                    <td>@a</td>
+                                                    <td>
+                                                        <img src="@brand.BrandsImage" style="width: 50px; height: 50px;" />
+                                                    </td>
+                                                    <td>@brand.BrandsName</td>
+                                                    <td>
+                                                        @if (brand.Status == 1)
+                                                        {
+                                                            <span class="badge bg-success-subtle text-success">Active</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="badge bg-danger-subtle text-danger">In-Active</span>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <a onclick="Edit(@brand.ID)" class="btn btn-sm btn-outline-info">
+                                                            <i class="bi bi-pencil-square"></i> Edit
+                                                        </a>
+                                                        <a onclick="Delete(@brand.ID)" class="btn btn-sm btn-outline-danger">
+                                                            <i class="bi bi-trash"></i> Delete
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Areas/Admin/Jquery/Brands.js"></script>
+<script>
+    function upload() {
+        var imgcanvas = document.getElementById("canva");
+        var fileinput = document.getElementById("BrandsImage");
+        var file = fileinput.files[0]; // Get the selected file
+
+        // Check if a file is selected
+        if (!file) {
+            alert("Please select an image file.");
+            return;
+        }
+
+        var reader = new FileReader();
+
+        reader.onload = function (event) {
+            let encodedImageUrl = encodeURI(event.target.result);
+
+            // Set the background image instead of drawing on the canvas
+            $('#canva').css({
+                'background-image': 'url(' + encodedImageUrl + ')',
+                'background-repeat': 'no-repeat',
+                'background-position': 'center',
+                'background-size': 'contain'
+            });
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+</script>
